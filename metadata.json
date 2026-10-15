@@ -1,0 +1,6 @@
+{
+  "name": "Blush & Beard – Luxury Unisex Salon & Spa",
+  "description": "Official website for Blush and Beard Unisex Salon & Academy in Kalyan West. Premium haircuts, beard grooming, hair treatments, hydra facials, and bridal makeovers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

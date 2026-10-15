@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-body);
+    color: #252525;
+    background-color: #F8F5EF;
+  }
+}
+
+.font-serif-luxury {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-heading {
+  font-family: 'Manrope', sans-serif;
+}
+
+.font-body {
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8F5EF;
+}
+::-webkit-scrollbar-thumb {
+  background: #C6A56B;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B39155;
+}
+
+/* Subtle gold gradient text helper */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #DFBE82 0%, #C6A56B 50%, #A98547 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glass card styling */
+.glass-nav {
+  background: rgba(16, 24, 40, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-nav-scrolled {
+  background: rgba(16, 24, 40, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35);
+}
