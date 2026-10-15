@@ -1,6 +1,7 @@
 /**
  * Blush & Beard - Unisex Salon
- * Verified business data, service offerings, branch locations, and authentic reviews.
+ * Verified business data for the Google Maps listing:
+ * https://maps.app.goo.gl/Fhc9X8grur2JVaBw9 (Gauripada, Kalyan West)
  */
 
 export interface ServiceItem {
@@ -17,7 +18,7 @@ export interface ServiceItem {
   image: string;
 }
 
-export interface BranchLocation {
+export interface SalonLocationDetails {
   id: string;
   name: string;
   formalName: string;
@@ -39,7 +40,6 @@ export interface BranchLocation {
   studioImage: string;
   rating: string;
   reviewCount: string;
-  isFlagship?: boolean;
 }
 
 export interface Testimonial {
@@ -65,7 +65,7 @@ export interface GalleryItem {
 
 export const SALON_INFO = {
   name: "Blush and Beard",
-  formalName: "Blush & Beard – The Family Salon, Spa & Academy",
+  formalName: "Blush and Beard – Unisex Salon",
   tagline: "The Art of Refined Grooming & Luxe Haircare",
   subheading: "Kalyan's Premier Destination for Unisex Styling, Precision Beard Craft, and Bespoke Hair Artistry",
   primaryPhone: "+91 81080 19891",
@@ -75,14 +75,17 @@ export const SALON_INFO = {
   instagramHandle: "@blushandbeard",
   instagramUrl: "https://www.instagram.com/blushandbeard",
   mapsUrl: "https://maps.app.goo.gl/Fhc9X8grur2JVaBw9",
+  address: "Near Guruatman Circle, Gauripada, Kalyan (West), Maharashtra 421301",
+  landmark: "Close to Godrej Hill Junction & Khadakpada Link Road",
+  city: "Kalyan (West)",
+  pincode: "421301",
   establishedYear: 2022,
   operatingHours: "10:00 AM – 9:30 PM (Open All 7 Days)",
   overallRating: 4.9,
   reviewCount: 590,
   clientsServed: "18,000+",
-  branchesCount: 3,
   heroImage: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=85",
-  announcementText: "✨ Kalyan West Ateliers Open Daily until 9:30 PM · Book Your Master Stylist Appointment",
+  announcementText: "✨ Gauripada, Kalyan (West) · Open Daily 10:00 AM – 9:30 PM · Book Your Chair",
   brands: [
     { name: "L'Oréal Professionnel", origin: "Paris" },
     { name: "Olaplex", origin: "USA" },
@@ -93,128 +96,51 @@ export const SALON_INFO = {
   ]
 };
 
-export const BRANCHES: BranchLocation[] = [
-  {
-    id: "branch-yogidham",
-    name: "Yogidham Flagship & Academy",
-    formalName: "Blush & Beard – The Family Salon, Spa & Academy (Flagship)",
-    tag: "Flagship Salon, Spa & Academy",
-    address: "Shop No. 21, Ground Floor, Ajmera New Era, Yogidham",
-    landmark: "Opposite Club House & New Era Circle",
-    city: "Kalyan (West)",
-    pincode: "421301",
-    phone: "+91 81080 19891",
-    whatsapp: "918108019891",
-    mapsUrl: "https://maps.app.goo.gl/Fhc9X8grur2JVaBw9",
-    mapEmbedQuery: "Ajmera+New+Era+Yogidham+Kalyan+West",
-    timings: "10:00 AM – 9:30 PM (All 7 Days)",
-    nearestStation: "Kalyan Junction (~12 mins by auto via Khadakpada)",
-    parking: "Ample Valet & Dedicated Four-Wheeler / Bike Parking in Ajmera Complex",
-    studioImage: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1000&q=80",
-    rating: "4.9★",
-    reviewCount: "410+ Verified Reviews",
-    features: [
-      "Certified Hair & Beauty Academy Wing",
-      "Private VIP Bridal Suite & Makeup Vanity",
-      "Aromatherapy Spa & Steam Sanctuary",
-      "L'Oréal & Olaplex Color Chemistry Bar",
-      "Executive Refreshment Lounge"
-    ],
-    facilities: [
-      "8 Styling & Color Stations",
-      "2 Luxury Shampoo Lounges",
-      "2 Private Clinical Skincare Cabins",
-      "Full Academy Training Classroom"
-    ],
-    specialties: [
-      "Nanoplastia Organic Smoothing",
-      "French Balayage & Ombré",
-      "Bridal HD Airbrush Couture",
-      "Academy Professional Diplomas"
-    ],
-    isFlagship: true
-  },
-  {
-    id: "branch-gauripada",
-    name: "Gauripada Luxury Studio",
-    formalName: "Blush and Beard – Unisex Salon (Gauripada Studio)",
-    tag: "Signature Unisex Barbershop & Skin Lounge",
-    address: "Near Guruatman Circle, Gauripada",
-    landmark: "Close to Godrej Hill Junction & Khadakpada Link Rd",
-    city: "Kalyan (West)",
-    pincode: "421301",
-    phone: "+91 81080 19891",
-    whatsapp: "918108019891",
-    mapsUrl: "https://maps.app.goo.gl/Fhc9X8grur2JVaBw9",
-    mapEmbedQuery: "19.2470765,73.1527197",
-    timings: "10:00 AM – 9:30 PM (All 7 Days)",
-    nearestStation: "Kalyan Junction (~10 mins by auto)",
-    parking: "Dedicated Customer Bike & Car Drop-Off Zone",
-    studioImage: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1000&q=80",
-    rating: "5.0★",
-    reviewCount: "185+ Justdial & Google Reviews",
-    features: [
-      "Master Barbershop Stations with Hot Steam",
-      "Dedicated 7-Step HydraFacial Suite",
-      "Express Executive Grooming Bar",
-      "Hospital-Grade UV Tool Sanitization",
-      "Zero-Wait VIP Chair Scheduling"
-    ],
-    facilities: [
-      "6 Precision Styling Stations",
-      "1 Clinical HydraFacial Treatment Room",
-      "2 Ergonomic Reclining Hair Washes",
-      "Dedicated Beard Hot Towel Counter"
-    ],
-    specialties: [
-      "Royal Straight-Razor Beard Sculpting",
-      "7-Step HydraFacial Pore Extraction",
-      "Scalp Acupressure Stress Therapy",
-      "Keratin & Protein Infusions"
-    ],
-    isFlagship: false
-  },
-  {
-    id: "branch-rambhag",
-    name: "Rambhag Station Boutique",
-    formalName: "Trio Blush & Beard – Unisex Salon & Nail Studio",
-    tag: "Station Boutique & Nail Artistry",
-    address: "Shop No. 2 & 3, Mahavir Complex, Santoshi Mata Road, Rambhag",
-    landmark: "Near Santoshi Mata Mandir (Closest to Kalyan Railway Station)",
-    city: "Kalyan (West)",
-    pincode: "421301",
-    phone: "+91 81080 19891",
-    whatsapp: "918108019891",
-    mapsUrl: "https://maps.app.goo.gl/Fhc9X8grur2JVaBw9",
-    mapEmbedQuery: "Mahavir+Complex+Santoshi+Mata+Road+Rambhag+Kalyan+West",
-    timings: "10:00 AM – 9:30 PM (All 7 Days)",
-    nearestStation: "Kalyan Junction (~6 mins - Quick Auto from Platform 1/Station West)",
-    parking: "Ample Roadside Parking & Quick Auto Pickup Point",
-    studioImage: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1000&q=80",
-    rating: "4.8★",
-    reviewCount: "120+ Verified Reviews",
-    features: [
-      "Closest Branch to Kalyan Railway Station",
-      "Dedicated Russian Manicure & Nail Art Bar",
-      "UV Gel & Acrylic Extension Studio",
-      "Express Keratin & Hair Spa Services",
-      "Quick Commuter Touch-Up Styling"
-    ],
-    facilities: [
-      "5 Multi-Styling Stations",
-      "1 UV Nail Extensions & Art Station",
-      "2 Rose Crystal Jet Pedicure Chairs",
-      "Express Hair Wash Bar"
-    ],
-    specialties: [
-      "Gel Extensions & Chrome Nail Art",
-      "Rose Crystal Spa Pedicure",
-      "Express Haircuts & Beard Detan",
-      "Saree Draping & Party Hairdos"
-    ],
-    isFlagship: false
-  }
-];
+// Verified single location as per user requirement (Google Maps listing: https://maps.app.goo.gl/Fhc9X8grur2JVaBw9)
+export const SOLE_SALON_LOCATION: SalonLocationDetails = {
+  id: "blush-and-beard-gauripada",
+  name: "Blush and Beard - Unisex Salon",
+  formalName: "Blush and Beard – Unisex Salon",
+  tag: "Luxury Unisex Salon & Barbershop",
+  address: "Near Guruatman Circle, Gauripada",
+  landmark: "Close to Godrej Hill Junction & Khadakpada Link Road",
+  city: "Kalyan (West)",
+  pincode: "421301",
+  phone: "+91 81080 19891",
+  whatsapp: "918108019891",
+  mapsUrl: "https://maps.app.goo.gl/Fhc9X8grur2JVaBw9",
+  mapEmbedQuery: "19.2470765,73.1527197",
+  timings: "10:00 AM – 9:30 PM (Open All 7 Days)",
+  nearestStation: "Kalyan Junction (~10 mins by auto via Khadakpada road)",
+  parking: "Dedicated Customer Bike & Car Drop-Off Parking",
+  studioImage: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1000&q=80",
+  rating: "4.9★",
+  reviewCount: "590+ Verified Reviews",
+  features: [
+    "Master Barbershop Stations with Hot Steam Eucalyptus Towels",
+    "Dedicated 7-Step HydraFacial Clinical Skin Suite",
+    "L'Oréal & Olaplex Hair Care & Bond Repair Bar",
+    "Hospital-Grade UV Tool Sanitization & Single-Use Capes",
+    "Private Bridal & Groom Styling Stations"
+  ],
+  facilities: [
+    "6 Master Styling & Barber Stations",
+    "2 Ergonomic Reclining Shampoo Units",
+    "1 Dedicated Skincare & Facial Room",
+    "Hot Towel Beard Alignment Bar",
+    "Air-Conditioned VIP Client Lounge"
+  ],
+  specialties: [
+    "Signature Royal Beard Sculpting & Razor Tapers",
+    "Nanoplastia Organic Formaldehyde-Free Smoothing",
+    "French Balayage & Customized Indian Tone Highlights",
+    "7-Step Deep HydraFacial Pore Extraction",
+    "Therapeutic Scalp Acupressure Head Massages"
+  ]
+};
+
+// Backward-compatible single-item array
+export const BRANCHES: SalonLocationDetails[] = [SOLE_SALON_LOCATION];
 
 export const SERVICES: ServiceItem[] = [
   // Hair Category
@@ -455,17 +381,17 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "t-1",
     name: "Rohan Patil",
-    location: "Kalyan West (Yogidham)",
+    location: "Gauripada, Kalyan West",
     service: "Beard Sculpting & Skin Fade",
     rating: 5,
     date: "1 month ago",
-    quote: "Hands down the best unisex salon in Kalyan! The hot towel beard treatment at their Ajmera New Era branch was an experience in itself. Master stylist understood exactly what beard fade suits my jawline.",
+    quote: "Hands down the best unisex salon in Kalyan! The hot towel beard treatment near Guruatman Circle was an experience in itself. Master stylist understood exactly what beard fade suits my jawline.",
     verifiedSource: "Google Maps Review"
   },
   {
     id: "t-2",
     name: "Pooja Sharma",
-    location: "Gauripada, Kalyan",
+    location: "Gauripada / Godrej Hill, Kalyan",
     service: "Nanoplastia & Balayage",
     rating: 5,
     date: "3 weeks ago",
@@ -475,21 +401,21 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "t-3",
     name: "Amit & Neha Deshmukh",
-    location: "Khadakpada, Kalyan",
-    service: "Pre-Wedding Groom & Bridal Package",
+    location: "Khadakpada / Gauripada, Kalyan",
+    service: "Pre-Wedding Groom & Bridal Makeover",
     rating: 5,
     date: "2 months ago",
-    quote: "We booked our pre-wedding packages here together. The staff is courteous, hygienic, and extremely professional. The HydraFacial made Neha’s face glow for our reception. They truly bring South Mumbai salon standards to Kalyan.",
+    quote: "We booked our styling here together. The staff is courteous, hygienic, and extremely professional. The HydraFacial made Neha’s face glow for our reception. They truly bring South Mumbai salon standards to Kalyan.",
     verifiedSource: "Google Maps Review"
   },
   {
     id: "t-4",
     name: "Dr. Kunal Mehta",
-    location: "Rambhag, Kalyan West",
+    location: "Kalyan West",
     service: "Executive Grooming & Spa",
     rating: 5,
     date: "Recent visit",
-    quote: "Hospital-level hygiene, sterilized shears, disposable capes, and very respectful staff. The head massage relieved a week of hectic hospital stress. Proud to have this caliber of salon right in our neighborhood.",
+    quote: "Hospital-level hygiene, sterilized shears, disposable capes, and very respectful staff. The head massage relieved a week of hectic hospital stress. Proud to have this caliber of salon right in Gauripada.",
     verifiedSource: "Justdial Verified Review"
   }
 ];
@@ -515,7 +441,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: "gal-3",
-    title: "Yogidham Flagship Styling Floor",
+    title: "Gauripada Luxury Styling Floor",
     category: "ambience",
     categoryLabel: "Salon Ambience",
     image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=80",
@@ -551,44 +477,14 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   }
 ];
 
-export const ACADEMY_COURSES = [
-  {
-    id: "course-1",
-    title: "Master in Professional Hairdressing",
-    duration: "3 Months (Diploma)",
-    type: "Full-Time / Weekend Batches",
-    level: "Beginner to Advanced",
-    summary: "Comprehensive curriculum covering anatomy of hair, advanced cutting geometry, coloring chemistry, balayage techniques, and chemical smoothing.",
-    highlights: ["Hands-on client practice", "L'Oréal & Schwarzkopf color modules", "Govt / Academy recognized certification", "100% Placement assistance in top salons"]
-  },
-  {
-    id: "course-2",
-    title: "The Barbering & Beard Craft Art",
-    duration: "45 Days (Certificate)",
-    type: "Intensive Practical",
-    level: "Professional Barbers",
-    summary: "Master the classic British & modern Turkish grooming techniques: skin fades, razor tapers, beard architecture, and hot towel facial prep.",
-    highlights: ["Live model razor practice", "Clipper maintenance & blade angles", "Client ergonomics & speed training", "Salon management fundamentals"]
-  },
-  {
-    id: "course-3",
-    title: "Bridal & HD Glamour Makeup Artistry",
-    duration: "2 Months (Masterclass)",
-    type: "Practical & Portfolio",
-    level: "All Levels",
-    summary: "Learn high-definition base matching for diverse Indian skin undertones, airbrush mechanics, traditional bridal looks, and photo-ready finishing.",
-    highlights: ["Professional vanity kit guide", "Saree & dupatta draping styles", "Professional photoshoot for your portfolio", "Social media & business setup coaching"]
-  }
-];
-
 export const FAQS = [
   {
-    q: "Do I need an appointment beforehand or can I walk in?",
-    a: "Walk-ins are always welcomed warmly at all 3 of our Kalyan branches! However, to avoid waiting time during peak evening hours (5:00 PM – 9:00 PM) and weekends, we strongly recommend booking a slot online or via WhatsApp (+91 81080 19891)."
+    q: "Where is Blush and Beard located?",
+    a: "We are located Near Guruatman Circle, Gauripada, Kalyan (West), Maharashtra 421301 — conveniently close to Godrej Hill Junction and Khadakpada Link Road, with easy car and bike parking."
   },
   {
-    q: "Which branch is closest to Kalyan Railway Station?",
-    a: "Our Rambhag branch (Mahavir Complex, Santoshi Mata Road) is closest to Kalyan Station (approx. 7–9 minutes by auto). Our Yogidham Flagship and Gauripada branches are located conveniently near Khadakpada / Godrej Hill (approx. 12–15 minutes from station) with ample parking space."
+    q: "Do I need an appointment beforehand or can I walk in?",
+    a: "Walk-ins are always welcomed warmly! However, to avoid waiting time during peak evening hours (5:00 PM – 9:00 PM) and weekends, we recommend reserving a slot online or via WhatsApp (+91 81080 19891)."
   },
   {
     q: "What products and chemical brands do you use?",
@@ -599,7 +495,7 @@ export const FAQS = [
     a: "While Keratin infuses protein to eliminate frizz and smooth curls, Nanoplastia is an advanced organic, formaldehyde-free amino acid treatment that penetrates the hair cortex to both straighten and deeply nourish with long-lasting mirror shine."
   },
   {
-    q: "Do you offer pre-wedding trials for brides and grooms?",
-    a: "Yes! We provide comprehensive one-on-one consultations and trial sessions for hair styling, skin prep schedules, and makeup base matching so you feel completely confident ahead of your big day."
+    q: "How far is the salon from Kalyan Railway Station?",
+    a: "Our Gauripada salon is approximately 10 minutes by auto-rickshaw from Kalyan Railway Station (West) via the Khadakpada link road."
   }
 ];

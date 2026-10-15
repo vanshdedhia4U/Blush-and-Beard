@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   SALON_INFO, 
-  BRANCHES, 
+  SOLE_SALON_LOCATION, 
   SERVICES, 
   GALLERY_ITEMS, 
   TESTIMONIALS,
   ServiceItem, 
-  BranchLocation, 
+  SalonLocationDetails, 
   GalleryItem,
   Testimonial 
 } from '../data/salonData';
@@ -49,7 +49,8 @@ export interface ClientAccessKey {
 interface SalonContextType {
   // Data
   salonInfo: typeof SALON_INFO;
-  branches: BranchLocation[];
+  salonLocation: SalonLocationDetails;
+  branches: SalonLocationDetails[]; // Kept for compatibility, returns single store
   services: ServiceItem[];
   galleryItems: GalleryItem[];
   testimonials: Testimonial[];
@@ -65,7 +66,7 @@ interface SalonContextType {
   // Admin Operations
   loginAdmin: (credential: string) => { success: boolean; message?: string };
   logoutAdmin: () => void;
-  createClientKey: (name: string, role: 'manager' | 'receptionist', branch: string) => ClientAccessKey;
+  createClientKey: (name: string, role: 'manager' | 'receptionist', branch?: string) => ClientAccessKey;
   deleteClientKey: (id: string) => void;
   
   // Content Management
@@ -90,7 +91,29 @@ interface SalonContextType {
 const SalonContext = createContext<SalonContextType | undefined>(undefined);
 
 const MASTER_EMAIL = "vanshdedhia4@gmail.com";
-const MASTER_PIN = "blush2026"; // Master access key for owner/developer
+const MASTER_PIN = "blush2026"; // Master access key for owner
+
+// Safe Storage helpers to prevent any crash in GitHub Pages, incognito, or sandboxed environments
+const safeGetItem = (key: string): string | null => {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return window.localStorage.getItem(key);
+    }
+  } catch (err) {
+    console.warn('LocalStorage access restricted:', err);
+  }
+  return null;
+};
+
+const safeSetItem = (key: string, value: string) => {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem(key, value);
+    }
+  } catch (err) {
+    console.warn('LocalStorage save restricted:', err);
+  }
+};
 
 const INITIAL_BOOKINGS: BookingRecord[] = [
   {
@@ -98,7 +121,7 @@ const INITIAL_BOOKINGS: BookingRecord[] = [
     referenceCode: "BB-729410",
     customerName: "Sneha Patil",
     customerPhone: "98201 44520",
-    branch: "Yogidham Flagship & Academy",
+    branch: "Blush and Beard - Gauripada",
     services: ["Nanoplastia Organic Smoothing", "Bespoke Haircut & Blowout"],
     date: "2026-10-15",
     timeSlot: "11:00 AM",
@@ -112,28 +135,14 @@ const INITIAL_BOOKINGS: BookingRecord[] = [
     referenceCode: "BB-481902",
     customerName: "Aditya Khopkar",
     customerPhone: "98199 87312",
-    branch: "Gauripada Studio",
+    branch: "Blush and Beard - Gauripada",
     services: ["Signature Royal Beard Sculpting", "Therapeutic Scalp & Head Massage"],
     date: "2026-10-15",
     timeSlot: "05:30 PM",
     stylist: "Master Barber (Beard Expert)",
-    notes: "Hot towel prep preferred",
+    notes: "Hot towel eucalyptus prep preferred",
     status: "pending",
     createdAt: "2026-10-14T10:15:00Z"
-  },
-  {
-    id: "b-103",
-    referenceCode: "BB-392104",
-    customerName: "Meera Nair",
-    customerPhone: "97690 12345",
-    branch: "Rambhag Lounge",
-    services: ["Advanced 7-Step HydraFacial", "Rose Crystal Luxury Spa Pedicure"],
-    date: "2026-10-16",
-    timeSlot: "02:30 PM",
-    stylist: "Any Master Stylist",
-    notes: "Pre-event glowing skin prep",
-    status: "pending",
-    createdAt: "2026-10-14T11:00:00Z"
   }
 ];
 
@@ -143,148 +152,154 @@ const INITIAL_INQUIRIES: InquiryRecord[] = [
     name: "Dr. Varun Joshi",
     phone: "98210 55432",
     email: "varun.j@gmail.com",
-    branch: "Yogidham Flagship & Academy",
-    message: "Inquiring about pre-wedding groom package timing and available Sunday slots for groom party.",
+    branch: "Blush and Beard - Gauripada",
+    message: "Inquiring about weekend appointments for HydraFacial and master beard trimming.",
     status: "new",
     createdAt: "2026-10-14T08:45:00Z"
-  },
-  {
-    id: "inq-2",
-    name: "Priya Sawant",
-    phone: "99300 78120",
-    email: "priya.sawant@yahoo.com",
-    branch: "Yogidham Flagship & Academy",
-    message: "Interested in the 3-Month Diploma in Professional Hairdressing syllabus and batch start dates.",
-    status: "contacted",
-    createdAt: "2026-10-13T16:20:00Z"
   }
 ];
 
 export const SalonProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Persistent state initialized from localStorage if available
   const [salonInfo, setSalonInfo] = useState<typeof SALON_INFO>(() => {
-    const saved = localStorage.getItem('bb_salon_info');
-    return saved ? JSON.parse(saved) : SALON_INFO;
-  });
-
-  const [branches, setBranches] = useState<BranchLocation[]>(() => {
-    const saved = localStorage.getItem('bb_branches');
-    if (!saved) return BRANCHES;
+    const saved = safeGetItem('bb_salon_info');
+    if (!saved) return SALON_INFO;
     try {
-      const parsed: BranchLocation[] = JSON.parse(saved);
-      return BRANCHES.map(def => {
-        const found = parsed.find(p => p.id === def.id);
-        return found ? { ...def, ...found } : def;
-      });
+      return { ...SALON_INFO, ...JSON.parse(saved) };
     } catch {
-      return BRANCHES;
+      return SALON_INFO;
     }
   });
 
+  const [salonLocation] = useState<SalonLocationDetails>(SOLE_SALON_LOCATION);
+  const branches = [SOLE_SALON_LOCATION];
+
   const [services, setServices] = useState<ServiceItem[]>(() => {
-    const saved = localStorage.getItem('bb_services');
-    return saved ? JSON.parse(saved) : SERVICES;
+    const saved = safeGetItem('bb_services');
+    if (!saved) return SERVICES;
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return SERVICES;
+    }
   });
 
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() => {
-    const saved = localStorage.getItem('bb_gallery');
-    return saved ? JSON.parse(saved) : GALLERY_ITEMS;
+    const saved = safeGetItem('bb_gallery');
+    if (!saved) return GALLERY_ITEMS;
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return GALLERY_ITEMS;
+    }
   });
 
   const [testimonials] = useState<Testimonial[]>(TESTIMONIALS);
 
   const [bookings, setBookings] = useState<BookingRecord[]>(() => {
-    const saved = localStorage.getItem('bb_bookings');
-    return saved ? JSON.parse(saved) : INITIAL_BOOKINGS;
+    const saved = safeGetItem('bb_bookings');
+    if (!saved) return INITIAL_BOOKINGS;
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return INITIAL_BOOKINGS;
+    }
   });
 
   const [inquiries, setInquiries] = useState<InquiryRecord[]>(() => {
-    const saved = localStorage.getItem('bb_inquiries');
-    return saved ? JSON.parse(saved) : INITIAL_INQUIRIES;
+    const saved = safeGetItem('bb_inquiries');
+    if (!saved) return INITIAL_INQUIRIES;
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return INITIAL_INQUIRIES;
+    }
   });
 
   const [clientKeys, setClientKeys] = useState<ClientAccessKey[]>(() => {
-    const saved = localStorage.getItem('bb_client_keys');
-    return saved ? JSON.parse(saved) : [
-      {
-        id: "ck-1",
-        name: "Kalyan Flagship Front Desk",
-        key: "bb-kalyan-desk",
-        role: "manager",
-        branch: "Yogidham Flagship & Academy",
-        createdAt: "2026-10-01"
-      }
-    ];
+    const saved = safeGetItem('bb_client_keys');
+    if (!saved) {
+      return [
+        {
+          id: "ck-1",
+          name: "Gauripada Front Desk",
+          key: "bb-gauripada-desk",
+          role: "manager",
+          branch: "Gauripada, Kalyan West",
+          createdAt: "2026-10-01"
+        }
+      ];
+    }
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return [];
+    }
   });
 
-  // Admin auth states
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(() => {
-    return localStorage.getItem('bb_admin_logged_in') === 'true';
+    return safeGetItem('bb_admin_logged_in') === 'true';
   });
 
   const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(() => {
-    return localStorage.getItem('bb_current_user_email');
+    return safeGetItem('bb_current_user_email');
   });
 
   const [currentUserRole, setCurrentUserRole] = useState<'owner' | 'client_manager' | null>(() => {
-    return (localStorage.getItem('bb_current_user_role') as 'owner' | 'client_manager') || null;
+    return (safeGetItem('bb_current_user_role') as 'owner' | 'client_manager') || null;
   });
 
-  // Save changes to localStorage
+  // Sync to safe storage
   useEffect(() => {
-    localStorage.setItem('bb_salon_info', JSON.stringify(salonInfo));
+    safeSetItem('bb_salon_info', JSON.stringify(salonInfo));
   }, [salonInfo]);
 
   useEffect(() => {
-    localStorage.setItem('bb_services', JSON.stringify(services));
+    safeSetItem('bb_services', JSON.stringify(services));
   }, [services]);
 
   useEffect(() => {
-    localStorage.setItem('bb_gallery', JSON.stringify(galleryItems));
+    safeSetItem('bb_gallery', JSON.stringify(galleryItems));
   }, [galleryItems]);
 
   useEffect(() => {
-    localStorage.setItem('bb_bookings', JSON.stringify(bookings));
+    safeSetItem('bb_bookings', JSON.stringify(bookings));
   }, [bookings]);
 
   useEffect(() => {
-    localStorage.setItem('bb_inquiries', JSON.stringify(inquiries));
+    safeSetItem('bb_inquiries', JSON.stringify(inquiries));
   }, [inquiries]);
 
   useEffect(() => {
-    localStorage.setItem('bb_client_keys', JSON.stringify(clientKeys));
+    safeSetItem('bb_client_keys', JSON.stringify(clientKeys));
   }, [clientKeys]);
 
   // Auth methods
   const loginAdmin = (credential: string) => {
     const trimmed = credential.trim();
-    
-    // Check if master owner login
     if (trimmed === MASTER_PIN || trimmed === MASTER_EMAIL || trimmed.toLowerCase() === 'admin' || trimmed === 'vansh2026') {
       setIsAdminLoggedIn(true);
       setCurrentUserEmail(MASTER_EMAIL);
       setCurrentUserRole('owner');
-      localStorage.setItem('bb_admin_logged_in', 'true');
-      localStorage.setItem('bb_current_user_email', MASTER_EMAIL);
-      localStorage.setItem('bb_current_user_role', 'owner');
+      safeSetItem('bb_admin_logged_in', 'true');
+      safeSetItem('bb_current_user_email', MASTER_EMAIL);
+      safeSetItem('bb_current_user_role', 'owner');
       return { success: true };
     }
 
-    // Check if client access key
     const clientKeyMatch = clientKeys.find(ck => ck.key === trimmed);
     if (clientKeyMatch) {
       setIsAdminLoggedIn(true);
       setCurrentUserEmail(clientKeyMatch.name);
       setCurrentUserRole('client_manager');
-      localStorage.setItem('bb_admin_logged_in', 'true');
-      localStorage.setItem('bb_current_user_email', clientKeyMatch.name);
-      localStorage.setItem('bb_current_user_role', 'client_manager');
+      safeSetItem('bb_admin_logged_in', 'true');
+      safeSetItem('bb_current_user_email', clientKeyMatch.name);
+      safeSetItem('bb_current_user_role', 'client_manager');
       return { success: true };
     }
 
     return { 
       success: false, 
-      message: 'Invalid access key or credentials. Use master key or client access key.' 
+      message: 'Invalid access key. Use master passcode blush2026 or staff key bb-gauripada-desk.' 
     };
   };
 
@@ -292,12 +307,16 @@ export const SalonProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setIsAdminLoggedIn(false);
     setCurrentUserEmail(null);
     setCurrentUserRole(null);
-    localStorage.removeItem('bb_admin_logged_in');
-    localStorage.removeItem('bb_current_user_email');
-    localStorage.removeItem('bb_current_user_role');
+    try {
+      localStorage.removeItem('bb_admin_logged_in');
+      localStorage.removeItem('bb_current_user_email');
+      localStorage.removeItem('bb_current_user_role');
+    } catch (e) {
+      // ignore
+    }
   };
 
-  const createClientKey = (name: string, role: 'manager' | 'receptionist', branch: string) => {
+  const createClientKey = (name: string, role: 'manager' | 'receptionist', branch = "Gauripada, Kalyan West") => {
     const generatedKey = `bb-${name.toLowerCase().replace(/[^a-z0-9]/g, '')}-${Math.floor(100 + Math.random() * 900)}`;
     const newKeyItem: ClientAccessKey = {
       id: `ck-${Date.now()}`,
@@ -315,7 +334,6 @@ export const SalonProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setClientKeys(prev => prev.filter(ck => ck.id !== id));
   };
 
-  // Content updates
   const updateSalonInfo = (updates: Partial<typeof SALON_INFO>) => {
     setSalonInfo(prev => ({ ...prev, ...updates }));
   };
@@ -352,11 +370,11 @@ export const SalonProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setGalleryItems(prev => prev.filter(g => g.id !== id));
   };
 
-  // Bookings
   const addBooking = (bookingData: Omit<BookingRecord, 'id' | 'createdAt' | 'status'>) => {
     const ref = bookingData.referenceCode || `BB-${Math.floor(100000 + Math.random() * 900000)}`;
     const newBooking: BookingRecord = {
       ...bookingData,
+      branch: "Blush and Beard - Gauripada",
       referenceCode: ref,
       id: `b-${Date.now()}`,
       status: 'pending',
@@ -374,10 +392,10 @@ export const SalonProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setBookings(prev => prev.filter(b => b.id !== id));
   };
 
-  // Inquiries
   const addInquiry = (inquiryData: Omit<InquiryRecord, 'id' | 'createdAt' | 'status'>) => {
     const newInquiry: InquiryRecord = {
       ...inquiryData,
+      branch: "Blush and Beard - Gauripada",
       id: `inq-${Date.now()}`,
       status: 'new',
       createdAt: new Date().toISOString()
@@ -393,6 +411,7 @@ export const SalonProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     <SalonContext.Provider
       value={{
         salonInfo,
+        salonLocation,
         branches,
         services,
         galleryItems,

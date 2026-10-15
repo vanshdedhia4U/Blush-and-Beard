@@ -37,10 +37,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenAdmin, acti
     { name: 'Story', href: '#about' },
     { name: 'Treatment Atelier', href: '#services' },
     { name: 'Transformations', href: '#transformations' },
-    { name: 'Ateliers & Map', href: '#locations' },
+    { name: 'Location & Map', href: '#locations' },
     { name: 'Portfolio', href: '#gallery' },
-    { name: 'Academy', href: '#academy' },
-    { name: 'Journal', href: '#reviews' },
+    { name: 'Client Reviews', href: '#reviews' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -52,11 +51,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenAdmin, acti
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1.5 text-[#C6A56B] font-medium tracking-wide">
               <Star className="w-3.5 h-3.5 fill-[#C6A56B]" />
-              <span>4.9★ (590+ Google Reviews)</span>
+              <span>4.9★ Rated (590+ Google Reviews)</span>
             </span>
             <span className="hidden md:inline text-white/30" aria-hidden="true">|</span>
             <span className="hidden md:inline text-white/80 font-body">
-              {salonInfo.announcementText || "Kalyan West Ateliers · Yogidham · Gauripada · Rambhag"}
+              Near Guruatman Circle, Gauripada, Kalyan (West) · Daily 10 AM – 9:30 PM
             </span>
           </div>
 
@@ -112,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenAdmin, acti
                   BLUSH <span className="text-[#C6A56B] font-serif-luxury italic">&amp;</span> BEARD
                 </span>
                 <span className="text-[10px] tracking-[0.25em] uppercase text-[#C6A56B]/90 font-medium">
-                  Atelier · Spa · Academy
+                  Unisex Salon · Gauripada
                 </span>
               </div>
             </a>

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import { SalonProvider } from './context/SalonContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -13,7 +13,6 @@ import { ServicesMenu } from './components/ServicesMenu';
 import { TransformationStudio } from './components/TransformationStudio';
 import { BranchLocations } from './components/BranchLocations';
 import { GalleryShowcase } from './components/GalleryShowcase';
-import { AcademySection } from './components/AcademySection';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
@@ -22,20 +21,67 @@ import { FloatingActions } from './components/FloatingActions';
 import { BookingModal } from './components/BookingModal';
 import { AdminDashboard } from './components/AdminDashboard';
 
+// ErrorBoundary to prevent any blank page when sharing to GitHub / external hosting
+interface ErrorBoundaryProps {
+  children: ReactNode;
+}
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("ErrorBoundary caught error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-[#101828] text-white flex flex-col items-center justify-center p-6 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-[#C6A56B]/20 border border-[#C6A56B] flex items-center justify-center text-[#C6A56B] font-bold text-xl mb-4">
+            B&amp;B
+          </div>
+          <h1 className="text-2xl font-bold font-heading mb-2">Blush and Beard – Unisex Salon</h1>
+          <p className="text-sm text-white/70 max-w-md mb-6 font-body">
+            Gauripada, Kalyan (West). The salon experience is ready. Click below to refresh.
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="px-6 py-3 rounded-xl bg-[#C6A56B] text-[#101828] font-bold text-sm hover:bg-[#B89659] transition-all cursor-pointer shadow-lg"
+          >
+            Reload Website
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 function MainApp() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [preSelectedServiceId, setPreSelectedServiceId] = useState<string | undefined>();
-  const [preSelectedBranchName, setPreSelectedBranchName] = useState<string | undefined>();
   const [activeSection, setActiveSection] = useState<string>('top');
 
   // Check URL hash for direct admin link #admin
   useEffect(() => {
-    if (window.location.hash === '#admin') {
+    if (typeof window !== 'undefined' && window.location.hash === '#admin') {
       setIsAdminOpen(true);
     }
     const handleHashChange = () => {
-      if (window.location.hash === '#admin') {
+      if (typeof window !== 'undefined' && window.location.hash === '#admin') {
         setIsAdminOpen(true);
       }
     };
@@ -48,15 +94,9 @@ function MainApp() {
     setIsBookingOpen(true);
   };
 
-  const handleOpenBookingForBranch = (branchName: string) => {
-    setPreSelectedBranchName(branchName);
-    setPreSelectedServiceId(undefined);
-    setIsBookingOpen(true);
-  };
-
   // Track active section for nav highlight
   useEffect(() => {
-    const sectionIds = ['about', 'services', 'transformations', 'locations', 'gallery', 'academy', 'reviews', 'contact'];
+    const sectionIds = ['about', 'services', 'transformations', 'locations', 'gallery', 'reviews', 'contact'];
     
     const handleScroll = () => {
       const scrollPos = window.scrollY + 200;
@@ -108,22 +148,19 @@ function MainApp() {
           <TransformationStudio onOpenBooking={handleOpenBooking} />
         </div>
 
-        {/* 6. 3 Kalyan West Branches with Interactive Google Maps Embed */}
-        <BranchLocations onOpenBookingForBranch={handleOpenBookingForBranch} />
+        {/* 6. Single Verified Gauripada Salon Location with Live Google Maps Embed */}
+        <BranchLocations onOpenBookingForBranch={() => handleOpenBooking()} />
 
         {/* 7. Verified Portfolio Showcase with Lightbox */}
         <GalleryShowcase />
 
-        {/* 8. Blush & Beard Academy */}
-        <AcademySection onOpenBooking={() => handleOpenBooking()} />
-
-        {/* 9. Verified Google Maps Reviews */}
+        {/* 8. Verified Google Maps Reviews */}
         <TestimonialsSection />
 
-        {/* 10. Frequently Asked Questions */}
+        {/* 9. Frequently Asked Questions */}
         <FaqSection />
 
-        {/* 11. Concierge & Contact Form */}
+        {/* 10. Concierge & Contact Form */}
         <ContactSection />
       </main>
 
@@ -138,7 +175,6 @@ function MainApp() {
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
         preSelectedServiceId={preSelectedServiceId}
-        preSelectedBranchName={preSelectedBranchName}
       />
 
       {/* Secure Admin & Client Dashboard */}
@@ -157,8 +193,10 @@ function MainApp() {
 
 export default function App() {
   return (
-    <SalonProvider>
-      <MainApp />
-    </SalonProvider>
+    <ErrorBoundary>
+      <SalonProvider>
+        <MainApp />
+      </SalonProvider>
+    </ErrorBoundary>
   );
 }

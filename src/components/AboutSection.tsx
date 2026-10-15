@@ -1,6 +1,6 @@
 import React from 'react';
-import { CheckCircle, ShieldCheck, Heart, Sparkles, MapPin, ArrowRight } from 'lucide-react';
-import { SALON_INFO, BRANCHES } from '../data/salonData';
+import { MapPin, ArrowRight } from 'lucide-react';
+import { SALON_INFO } from '../data/salonData';
 
 interface AboutSectionProps {
   onOpenBooking: () => void;
@@ -21,8 +21,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
       desc: "All metal clippers, shears, and cuticle pushers undergo medical-grade UV and chemical sterilization before each client. Single-use disposable capes guaranteed."
     },
     {
-      title: "The Academy of Excellence",
-      desc: "Our flagship Yogidham branch houses our certified hair & beauty academy, training ambitious stylists across Thane and Mumbai to master international techniques."
+      title: "Master Stylist Consultation",
+      desc: "Every appointment begins with a personalized face-mapping, scalp assessment, and hair health consultation to recommend exact bespoke treatments."
     }
   ];
 
@@ -100,10 +100,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
                 </div>
                 <div>
                   <div className="text-xs text-[#C6A56B] font-bold uppercase tracking-wider">
-                    3 Verified Locations
+                    Verified Google Maps Salon
                   </div>
                   <div className="text-sm font-semibold text-white">
-                    Yogidham · Gauripada · Rambhag
+                    Near Guruatman Circle, Gauripada
                   </div>
                 </div>
               </div>

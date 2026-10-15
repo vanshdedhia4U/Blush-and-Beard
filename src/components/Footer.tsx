@@ -79,9 +79,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
               <li><a href="#services" className="hover:text-[#C6A56B] transition-colors">Treatment Atelier</a></li>
               <li><a href="#transformations" className="hover:text-[#C6A56B] transition-colors">Transformations</a></li>
               <li><a href="#gallery" className="hover:text-[#C6A56B] transition-colors">Portfolio</a></li>
-              <li><a href="#academy" className="hover:text-[#C6A56B] transition-colors">Styling Academy</a></li>
               <li><a href="#reviews" className="hover:text-[#C6A56B] transition-colors">Client Reviews</a></li>
-              <li><a href="#locations" className="hover:text-[#C6A56B] transition-colors">3 Kalyan Ateliers</a></li>
+              <li><a href="#locations" className="hover:text-[#C6A56B] transition-colors">Location &amp; Map</a></li>
             </ul>
           </div>
 
@@ -100,24 +99,21 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             </ul>
           </div>
 
-          {/* Kalyan Branches */}
+          {/* Kalyan Location */}
           <div className="lg:col-span-3 space-y-3">
             <div className="text-xs font-bold uppercase tracking-wider text-[#C6A56B]">
-              3 Kalyan Branches
+              Salon Destination
             </div>
-            <div className="space-y-3 text-xs text-white/75 font-body">
-              {branches.map(b => (
-                <div key={b.id} className="border-b border-white/5 pb-2">
-                  <div className="font-semibold text-white">{b.name}</div>
-                  <div className="text-[11px] text-white/60">{b.address}</div>
-                </div>
-              ))}
+            <div className="space-y-2 text-xs text-white/75 font-body">
+              <div className="font-semibold text-white">Blush and Beard – Unisex Salon</div>
+              <div className="text-[11px] text-white/70">Near Guruatman Circle, Gauripada, Kalyan (West), Maharashtra 421301</div>
+              <div className="text-[11px] text-[#C6A56B] font-medium">Daily: 10:00 AM – 9:30 PM</div>
             </div>
 
             <button
               type="button"
               onClick={onOpenBooking}
-              className="mt-2 w-full py-2.5 px-3 rounded-lg bg-[#C6A56B] hover:bg-[#B89659] text-[#101828] text-xs font-bold text-center transition-colors cursor-pointer"
+              className="mt-3 w-full py-2.5 px-3 rounded-lg bg-[#C6A56B] hover:bg-[#B89659] text-[#101828] text-xs font-bold text-center transition-colors cursor-pointer"
             >
               Book an Appointment
             </button>

@@ -54,7 +54,7 @@ export const GalleryShowcase: React.FC = () => {
               Atmosphere &amp; Client Artistry.
             </h2>
             <p className="mt-3 text-base text-[#252525]/80 font-body">
-              Photographs from our verified Google Maps listing and atelier floors across Yogidham, Gauripada, and Rambhag.
+              Verified photographs from our Google Maps listing and atelier floor in Gauripada, Kalyan West.
             </p>
           </div>
 

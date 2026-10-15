@@ -19,7 +19,7 @@ export const ContactSection: React.FC = () => {
     name: '',
     phone: '',
     email: '',
-    branch: branches[0]?.name || 'Yogidham Flagship & Academy',
+    branch: salonInfo.formalName,
     message: ''
   });
 
@@ -136,7 +136,7 @@ export const ContactSection: React.FC = () => {
                     Google Maps Listing
                   </div>
                   <div className="text-base font-bold font-heading mt-0.5">
-                    Kalyan West Branches
+                    Gauripada Atelier, Kalyan West
                   </div>
                   <div className="text-xs text-[#252525]/60 group-hover:text-white/70 mt-0.5">
                     Click to launch turn-by-turn driving navigation
@@ -155,7 +155,7 @@ export const ContactSection: React.FC = () => {
                 {salonInfo.operatingHours}
               </div>
               <p className="text-xs text-white/70 font-body">
-                Open all 7 days across Yogidham, Gauripada, and Rambhag. Walk-ins welcomed warmly.
+                Open all 7 days in Gauripada, Kalyan West. Walk-ins welcomed warmly.
               </p>
             </div>
 
@@ -183,7 +183,7 @@ export const ContactSection: React.FC = () => {
                   type="button"
                   onClick={() => {
                     setStatus('idle');
-                    setFormData({ name: '', phone: '', email: '', branch: branches[0]?.name || 'Yogidham Flagship & Academy', message: '' });
+                    setFormData({ name: '', phone: '', email: '', branch: salonInfo.formalName, message: '' });
                   }}
                   className="mt-3 px-4 py-2 bg-[#101828] text-white text-xs font-bold rounded-lg cursor-pointer"
                 >
@@ -245,17 +245,12 @@ export const ContactSection: React.FC = () => {
 
                   <div>
                     <label className="block text-xs font-bold text-[#101828] mb-1">
-                      Preferred Kalyan Branch
+                      Salon Destination
                     </label>
-                    <select
-                      value={formData.branch}
-                      onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#101828]/15 bg-white text-xs sm:text-sm text-[#252525] focus:border-[#C6A56B] outline-none font-medium"
-                    >
-                      {branches.map(b => (
-                        <option key={b.id} value={b.name}>{b.name}</option>
-                      ))}
-                    </select>
+                    <div className="w-full px-3.5 py-2.5 rounded-xl border border-[#101828]/15 bg-white text-xs sm:text-sm text-[#101828] font-semibold flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-[#C6A56B] shrink-0" />
+                      <span className="truncate">Near Guruatman Circle, Gauripada, Kalyan (W)</span>
+                    </div>
                   </div>
                 </div>
 

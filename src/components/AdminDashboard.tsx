@@ -93,7 +93,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
 
   // Client key creation state
   const [clientKeyName, setClientKeyName] = useState('');
-  const [clientKeyBranch, setClientKeyBranch] = useState(branches[0]?.name || 'Yogidham Flagship');
+  const [clientKeyBranch, setClientKeyBranch] = useState(branches[0]?.name || 'Blush and Beard - Gauripada');
   const [newGeneratedKeyNotice, setNewGeneratedKeyNotice] = useState<string | null>(null);
 
   // Settings form

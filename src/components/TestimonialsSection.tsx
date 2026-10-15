@@ -17,7 +17,7 @@ export const TestimonialsSection: React.FC = () => {
               Trusted by Kalyan&apos;s Discerning Patrons.
             </h2>
             <p className="mt-4 text-base sm:text-lg text-[#252525]/80 font-body">
-              Verified experiences from clients across our Yogidham, Gauripada, and Rambhag branches.
+              Verified Google Maps reviews from clients visiting our Gauripada salon in Kalyan West.
             </p>
           </div>
 

@@ -30,7 +30,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const { branches, services, salonInfo, addBooking } = useSalon();
 
   const [selectedBranch, setSelectedBranch] = useState<string>(
-    preSelectedBranchName || branches[0]?.name || 'Yogidham Flagship & Academy'
+    preSelectedBranchName || branches[0]?.name || 'Blush and Beard - Gauripada'
   );
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>('');
@@ -303,28 +303,16 @@ Please confirm my appointment slot availability. Thank you!`;
               </div>
             )}
 
-            {/* 1. Branch Selection */}
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#101828] mb-2 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#C6A56B]" />
-                <span>1. Select Kalyan Atelier Branch</span>
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                {branches.map((b) => (
-                  <button
-                    key={b.id}
-                    type="button"
-                    onClick={() => setSelectedBranch(b.name)}
-                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
-                      selectedBranch === b.name
-                        ? 'border-[#C6A56B] bg-[#F8F5EF] text-[#101828] shadow-sm ring-1 ring-[#C6A56B]'
-                        : 'border-[#101828]/15 bg-white text-[#252525]/80 hover:border-[#101828]/40'
-                    }`}
-                  >
-                    <div className="font-heading font-bold text-xs text-[#101828]">{b.name}</div>
-                    <div className="text-[11px] text-[#252525]/60 truncate">{b.address}</div>
-                  </button>
-                ))}
+            {/* 1. Salon Location Display */}
+            <div className="p-3.5 rounded-xl bg-[#F8F5EF] border border-[#C6A56B]/30 flex items-start gap-3">
+              <MapPin className="w-4 h-4 text-[#C6A56B] shrink-0 mt-0.5" />
+              <div>
+                <div className="font-heading font-bold text-xs text-[#101828]">
+                  Blush and Beard – Unisex Salon (Gauripada)
+                </div>
+                <div className="text-[11px] text-[#252525]/70">
+                  Near Guruatman Circle, Gauripada, Kalyan (West) 421301 (Close to Godrej Hill Junction)
+                </div>
               </div>
             </div>
 

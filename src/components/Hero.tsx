@@ -168,8 +168,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
             {/* Live operational badge bar */}
             <div className="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
               <div>
-                <div className="text-white/50 text-[11px] uppercase tracking-wider">3 Kalyan West Hubs</div>
-                <div className="font-bold text-white mt-0.5">Yogidham · Gauripada · Rambhag</div>
+                <div className="text-white/50 text-[11px] uppercase tracking-wider">Prime Location</div>
+                <div className="font-bold text-white mt-0.5">Near Guruatman Circle, Gauripada</div>
               </div>
               <div>
                 <div className="text-white/50 text-[11px] uppercase tracking-wider">Sterilization</div>
@@ -213,7 +213,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                     </div>
                     <div className="text-[11px] text-white/60 flex items-center gap-1 mt-0.5">
                       <Clock className="w-3 h-3 text-[#C6A56B]" />
-                      <span>Walk-ins &amp; reservations open daily</span>
+                      <span>Near Guruatman Circle · Open daily</span>
                     </div>
                   </div>
 
@@ -229,7 +229,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
 
               {/* Top floating badge */}
               <div className="absolute top-4 right-4 bg-[#0B0F17]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#C6A56B]/30 text-[11px] text-[#C6A56B] font-mono font-bold">
-                18,000+ Patrons
+                590+ Reviews
               </div>
             </div>
           </div>
@@ -240,8 +240,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
       {/* Horizontal High-Fashion Ticker Strip */}
       <div className="mt-8 border-t border-b border-white/10 bg-[#0B0F17] py-2.5 overflow-hidden relative">
         <div className="flex whitespace-nowrap animate-marquee text-[11px] uppercase tracking-[0.25em] text-[#C6A56B]/90 font-bold space-x-8">
-          <span>✦ KALYAN WEST ✦ 3 ATELIERS ✦ 4.9★ RATED (590+ REVIEWS) ✦ OLAPLEX USA &amp; L&apos;ORÉAL PARIS ✦ MASTER BARBERSHOP ✦ NANOPLASTIA ARTISTRY ✦ HYDRAFACIAL RITUALS ✦ ACADEMY OF HAIR &amp; BEAUTY ✦ WALK-INS &amp; APPOINTMENTS OPEN DAILY ✦</span>
-          <span>✦ KALYAN WEST ✦ 3 ATELIERS ✦ 4.9★ RATED (590+ REVIEWS) ✦ OLAPLEX USA &amp; L&apos;ORÉAL PARIS ✦ MASTER BARBERSHOP ✦ NANOPLASTIA ARTISTRY ✦ HYDRAFACIAL RITUALS ✦ ACADEMY OF HAIR &amp; BEAUTY ✦ WALK-INS &amp; APPOINTMENTS OPEN DAILY ✦</span>
+          <span>✦ BLUSH &amp; BEARD UNISEX SALON ✦ GAURIPADA KALYAN WEST ✦ 4.9★ RATED (590+ REVIEWS) ✦ OLAPLEX USA &amp; L&apos;ORÉAL PARIS ✦ MASTER BARBERSHOP ✦ NANOPLASTIA ARTISTRY ✦ HYDRAFACIAL RITUALS ✦ WALK-INS &amp; APPOINTMENTS OPEN DAILY ✦</span>
+          <span>✦ BLUSH &amp; BEARD UNISEX SALON ✦ GAURIPADA KALYAN WEST ✦ 4.9★ RATED (590+ REVIEWS) ✦ OLAPLEX USA &amp; L&apos;ORÉAL PARIS ✦ MASTER BARBERSHOP ✦ NANOPLASTIA ARTISTRY ✦ HYDRAFACIAL RITUALS ✦ WALK-INS &amp; APPOINTMENTS OPEN DAILY ✦</span>
         </div>
       </div>
     </section>

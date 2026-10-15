@@ -15,9 +15,9 @@ export const TrustHighlights: React.FC = () => {
       subtext: "Serving Kalyan West since June 2022"
     },
     {
-      value: "3 Locations",
-      label: "Kalyan West Branches",
-      subtext: "Yogidham, Gauripada & Rambhag"
+      value: "Gauripada",
+      label: "Kalyan (West)",
+      subtext: "Near Guruatman Circle & Godrej Hill"
     },
     {
       value: "100%",
